@@ -2,16 +2,17 @@ import Api.ApiService;
 import Api.Responce;
 import com.google.gson.GsonBuilder;
 import entity.Todo;
-import okhttp3.Response;
 import okhttp3.ResponseBody;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public class PostToDoTest extends BaseTest{
 
@@ -19,8 +20,9 @@ public class PostToDoTest extends BaseTest{
     public void shouldCanCreateTodo() throws IOException {
 //        Todo todo = new Todo("Test5");
 //        System.out.println(retrofit.create(ApiService.class).createNewToDo(new Todo("Test5")).execute().toString());
-          ResponseBody response = retrofit.create(ApiService.class).createNewToDo(new Todo("Test5")).execute().code();
-          assertThat(response);
+          Response<ResponseBody> response = retrofit.create(ApiService.class).createNewToDo(new Todo("Test5")).execute();
+          assertThat(response.code(), is(201));
+
 
 
     }
