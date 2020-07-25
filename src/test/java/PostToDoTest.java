@@ -20,7 +20,7 @@ public class PostToDoTest extends BaseTest{
 //        Todo todo = new Todo("Test5");
 //        System.out.println(retrofit.create(ApiService.class).createNewToDo(new Todo("Test5")).execute().toString());
           ResponseBody response = retrofit.create(ApiService.class).createNewToDo(new Todo("Test5")).execute().code();
-          assertThat(response.);
+          assertThat(response);
 
 
     }
