@@ -12,18 +12,18 @@ import java.util.List;
 public interface ApiService {
     @Headers("Content-Type: application/json")
     @POST("api/todo")
-    Call<ResponseBody> createNewToDo(@Body Todo todo);
+    Call<Responce> createNewToDo(@Body Todo todo);
 
     @Headers("Content-Type: application/json")
     @GET("api/todo")
     Call<List<Responce>> getListTodo();
 
     @Headers("Content-Type: application/json")
-    @DELETE("api/todo/{b3ad53d6-c3e6-4aac-b5f0-911c69a3c1a4}")
-    Call<ResponseBody> deleteListTodo();
+    @DELETE("api/todo/{id}")
+    Call<List<Responce>> deleteListTodo(@Path("id") String id);
 
     @Headers("Content-Type: application/json")
     @PUT("api/todo/")
-    Call<ResponseBody> patchListTodo(@Body UpdateTodo updateTodo);
+    Call<Responce> patchListTodo(@Body UpdateTodo updateTodo);
 
 }
