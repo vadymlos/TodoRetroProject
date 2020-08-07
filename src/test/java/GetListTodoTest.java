@@ -1,5 +1,7 @@
 import Api.ApiService;
 import Api.Responce;
+import Utils.ClearTodoList;
+import Utils.DeleteForTodoList;
 import com.google.gson.GsonBuilder;
 import entity.Todo;
 import org.testng.annotations.AfterMethod;
@@ -16,28 +18,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetListTodo extends BaseTest{
-
-    ArrayList<String> idTodo = new ArrayList<String>();
-
-    public void clearTodo() throws IOException {
-        ArrayList<String> id = new ArrayList<String>();
-
-        Response <List<Responce>> responce1 = retrofit.create(ApiService.class).getListTodo().execute();
-        if (responce1.body().size() > 0){
-            for (int i = 0; i < responce1.body().size(); i++) {
-                String tod = responce1.body().get(i).getId();
-                id.add(tod);
-            }
-        }
-        for (int i = 0; i < id.size(); i++) {
-            retrofit.create(ApiService.class).deleteListTodo(id.get(i)).execute();
-        }
-    }
+public class GetListTodoTest extends BaseTest{
 
     @BeforeMethod
     public void createTodo() throws IOException {
-        clearTodo();
+        ClearTodoList clearTodoList = new ClearTodoList();
+        clearTodoList.clearTodo(retrofit);
         retrofit.create(ApiService.class).createNewToDo(new Todo("Test11")).execute();
         retrofit.create(ApiService.class).createNewToDo(new Todo("Test12")).execute();
     }
@@ -49,17 +35,12 @@ public class GetListTodo extends BaseTest{
         assertThat(responce.body(), is(notNullValue()));
         responce.body().size();
         assertThat(responce.body().size(), is(2));
-        for (int i = 0; i < responce.body().size(); i++) {
-            String tod = responce.body().get(i).getId();
-            idTodo.add(tod);
-        }
     }
 
     @AfterMethod
-    public void deleteTodo() throws IOException {
-        for (int i = 0; i < idTodo.size(); i++) {
-            retrofit.create(ApiService.class).deleteListTodo(idTodo.get(i)).execute();
-        }
+    public void deleteTodo() {
+        DeleteForTodoList deleteForTodoList = new DeleteForTodoList();
+        deleteForTodoList.deleteTodoListForGet(retrofit);
     }
 }
 

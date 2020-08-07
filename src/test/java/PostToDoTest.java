@@ -28,8 +28,7 @@ public class PostToDoTest extends BaseTest{
           idTodo = responce.body().get(0).getId();
           assertThat(response.code(), is(201));
           assertThat(response.body(), is(notNullValue()));
-          String description = response.body().getDescription();
-          assertThat(description, is("Test11"));
+          assertThat(response.body().getDescription(), is("Test11"));
     }
 
     @AfterMethod
@@ -37,13 +36,3 @@ public class PostToDoTest extends BaseTest{
           retrofit.create(ApiService.class).deleteListTodo(idTodo).execute();
     }
 }
-
-//    @Test(description = "Registration new user")
-//    public void testCanRegisterNewUser() {
-//        User user3 = new User(Utils.randomUserName(), "Vadym", "Test", "form@com.com", "123");
-//
-//        Response response = userApiService.registerNewUser(user3);
-//        assertThat(response.statusCode(), equalTo(200));
-//        String body = response.body().jsonPath().get("id").toString();
-//        assertThat(body, not(isEmptyOrNullString()));
-//    }

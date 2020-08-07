@@ -32,8 +32,7 @@ public class PatchTodoTest extends BaseTest{
         Response <Responce> responce2 = retrofit.create(ApiService.class).patchListTodo(new UpdateTodo(idTodo, "test 20")).execute();
         Response<List<Responce>> responce = retrofit.create(ApiService.class).getListTodo().execute();
         assertThat(responce.code(), is(200));
-        String description = responce.body().get(0).getDescription();
-        assertThat(description, is("test 20"));
+        assertThat(responce.body().get(0).getDescription(), is("test 20"));
     }
 
     @AfterMethod
