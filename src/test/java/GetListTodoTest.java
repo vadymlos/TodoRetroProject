@@ -32,8 +32,6 @@ public class GetListTodoTest extends BaseTest{
     public void shouldCanGetListTodo () throws IOException {
         Response <List<Responce>> responce = retrofit.create(ApiService.class).getListTodo().execute();
         assertThat(responce.code(), is(200));
-        assertThat(responce.body(), is(notNullValue()));
-        responce.body().size();
         assertThat(responce.body().size(), is(2));
     }
 

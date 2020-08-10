@@ -10,6 +10,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,5 +35,8 @@ public class DeleteToDoTest extends BaseTest{
     @AfterMethod
     public void getTodo() throws IOException {
         retrofit.create(ApiService.class).getListTodo().execute();
+        Response <List<Responce>> responce = retrofit.create(ApiService.class).getListTodo().execute();
+        assertThat(responce.code(), is(200));
+        assertThat(responce.body().size(), is(0));
     }
 }
