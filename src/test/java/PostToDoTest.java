@@ -11,6 +11,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import steps.Apistep;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,17 +23,20 @@ public class PostToDoTest extends BaseTest{
     String idTodo;
 
     @Test(description = "Create new todo")
-    public void shouldCanCreateTodo() throws IOException {
-          Response<Responce> response = retrofit.create(ApiService.class).createNewToDo(new Todo("Test11")).execute();
-          Response <List<Responce>> responce = retrofit.create(ApiService.class).getListTodo().execute();
-          idTodo = responce.body().get(0).getId();
-          assertThat(response.code(), is(201));
-          assertThat(response.body(), is(notNullValue()));
-          assertThat(response.body().getDescription(), is("Test11"));
+    public void canCreateTodo() throws IOException {
+        //  Response<Responce> response = retrofit.create(ApiService.class).createNewToDo(new Todo("Test11")).execute();
+//          Response <List<Responce>> responce = retrofit.create(ApiService.class).getListTodo().execute();
+        Response<Responce> response = apistep.shouldCanCreateTodo(new Todo("Test15"));
+        Response <List<Responce>> responce = apistep.shouldCanGetListTodo();
+        idTodo = responce.body().get(0).getId();
+        assertThat(response.code(), is(201));
+        assertThat(response.body(), is(notNullValue()));
+        assertThat(response.body().getDescription(), is("Test15"));
     }
 
     @AfterMethod
     public void deleteTodo() throws IOException {
-          retrofit.create(ApiService.class).deleteListTodo(idTodo).execute();
+//          retrofit.create(ApiService.class).deleteListTodo(idTodo).execute();
+        apistep.shouldCanDeleteTodo(idTodo);
     }
 }

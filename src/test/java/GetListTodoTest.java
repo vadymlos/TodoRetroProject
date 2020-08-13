@@ -10,6 +10,8 @@ import org.testng.annotations.Test;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import steps.Apistep;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -24,13 +26,14 @@ public class GetListTodoTest extends BaseTest{
     public void createTodo() throws IOException {
         ClearTodoList clearTodoList = new ClearTodoList();
         clearTodoList.clearTodo(retrofit);
-        retrofit.create(ApiService.class).createNewToDo(new Todo("Test11")).execute();
-        retrofit.create(ApiService.class).createNewToDo(new Todo("Test12")).execute();
+        apistep.shouldCanCreateTodo(new Todo("Test11"));
+        apistep.shouldCanCreateTodo(new Todo("Test12"));
+//        retrofit.create(ApiService.class).createNewToDo(new Todo("Test12")).execute();
     }
 
     @Test(description = "Get list of todo")
-    public void shouldCanGetListTodo () throws IOException {
-        Response <List<Responce>> responce = retrofit.create(ApiService.class).getListTodo().execute();
+    public void canGetListTodo () throws IOException {
+        Response <List<Responce>> responce = apistep.shouldCanGetListTodo();
         assertThat(responce.code(), is(200));
         assertThat(responce.body().size(), is(2));
     }
