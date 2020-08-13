@@ -22,22 +22,25 @@ public class PatchTodoTest extends BaseTest{
 
     @BeforeMethod
     public void createTodo() throws IOException {
-        retrofit.create(ApiService.class).createNewToDo(new Todo("Test5")).execute();
-        Response <List<Responce>> responce = retrofit.create(ApiService.class).getListTodo().execute();
+//        retrofit.create(ApiService.class).createNewToDo(new Todo("Test5")).execute();
+        apistep.shouldCanCreateTodo(new Todo("Test5"));
+//        Response <List<Responce>> responce = retrofit.create(ApiService.class).getListTodo().execute();
+        Response <List<Responce>> responce = apistep.shouldCanGetListTodo();
         idTodo = responce.body().get(0).getId();
     }
 
     @Test(description = "Update todo")
-    public void shouldCanUpdateTodo () throws IOException {
-        Response <Responce> responce2 = retrofit.create(ApiService.class).patchListTodo(new UpdateTodo(idTodo, "test 20")).execute();
-        Response<List<Responce>> responce = retrofit.create(ApiService.class).getListTodo().execute();
+    public void canUpdateTodo () throws IOException {
+//        Response <Responce> responce2 = retrofit.create(ApiService.class).patchListTodo(new UpdateTodo(idTodo, "test 20")).execute();
+        Response <Responce> responce2 = apistep.shouldCanUpdateTodo(new UpdateTodo(idTodo, "Test10X"));
+        Response<List<Responce>> responce = apistep.shouldCanGetListTodo();
         assertThat(responce.code(), is(200));
-        assertThat(responce.body().get(0).getDescription(), is("test 20"));
+        assertThat(responce.body().get(0).getDescription(), is("Test10X"));
     }
 
     @AfterMethod
     public void deleteTodo() throws IOException {
-        retrofit.create(ApiService.class).deleteListTodo(idTodo).execute();
+        apistep.shouldCanDeleteTodo(idTodo);
     }
 }
 
