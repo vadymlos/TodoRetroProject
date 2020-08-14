@@ -26,6 +26,7 @@ target/
 /nbdist/
 /.nb-gradle/
 build/
+allure-results/
 
 ### VS Code ###
 .vscode/
