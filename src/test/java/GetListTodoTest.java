@@ -28,7 +28,6 @@ public class GetListTodoTest extends BaseTest{
         clearTodoList.clearTodo(retrofit);
         apistep.shouldCanCreateTodo(new Todo("Test11"));
         apistep.shouldCanCreateTodo(new Todo("Test12"));
-//        retrofit.create(ApiService.class).createNewToDo(new Todo("Test12")).execute();
     }
 
     @Test(description = "Get list of todo")

@@ -22,16 +22,13 @@ public class PatchTodoTest extends BaseTest{
 
     @BeforeMethod
     public void createTodo() throws IOException {
-//        retrofit.create(ApiService.class).createNewToDo(new Todo("Test5")).execute();
         apistep.shouldCanCreateTodo(new Todo("Test5"));
-//        Response <List<Responce>> responce = retrofit.create(ApiService.class).getListTodo().execute();
         Response <List<Responce>> responce = apistep.shouldCanGetListTodo();
         idTodo = responce.body().get(0).getId();
     }
 
     @Test(description = "Update todo")
     public void canUpdateTodo () throws IOException {
-//        Response <Responce> responce2 = retrofit.create(ApiService.class).patchListTodo(new UpdateTodo(idTodo, "test 20")).execute();
         Response <Responce> responce2 = apistep.shouldCanUpdateTodo(new UpdateTodo(idTodo, "Test10X"));
         Response<List<Responce>> responce = apistep.shouldCanGetListTodo();
         assertThat(responce.code(), is(200));

@@ -24,8 +24,6 @@ public class PostToDoTest extends BaseTest{
 
     @Test(description = "Create new todo")
     public void canCreateTodo() throws IOException {
-        //  Response<Responce> response = retrofit.create(ApiService.class).createNewToDo(new Todo("Test11")).execute();
-//          Response <List<Responce>> responce = retrofit.create(ApiService.class).getListTodo().execute();
         Response<Responce> response = apistep.shouldCanCreateTodo(new Todo("Test15"));
         Response <List<Responce>> responce = apistep.shouldCanGetListTodo();
         idTodo = responce.body().get(0).getId();
@@ -36,7 +34,6 @@ public class PostToDoTest extends BaseTest{
 
     @AfterMethod
     public void deleteTodo() throws IOException {
-//          retrofit.create(ApiService.class).deleteListTodo(idTodo).execute();
         apistep.shouldCanDeleteTodo(idTodo);
     }
 }
